@@ -34,7 +34,9 @@ func Read() string {
 	buf := make([]byte, 128)
 	n, err := gReadWriteCloser.Read(buf)
 	if err != nil {
-		Nlog.Error.Println("serial read error :", err)
+		if err != io.EOF { //EOF error isn't a real error.
+			Nlog.Error.Println("serial read error :", err)
+		}
 		return ""
 	} else {
 		readBuff := string(buf[:n])
