@@ -10,7 +10,7 @@ var gReadWriteCloser io.ReadWriteCloser
 
 func init() {
 	Nlog.Info.Println("serial init.")
-	c := &goserial.Config{Name: "/dev/ttyUSB0", Baud: 9600}
+	c := &goserial.Config{Name: "/dev/ttyUSB0", Baud: 115200}
 	closer, err := goserial.OpenPort(c)
 	if err != nil {
 		Nlog.Error.Println(err)
@@ -31,7 +31,7 @@ func Write(writeBuff string) int {
 }
 
 func Read() string {
-	buf := make([]byte, 128)
+	buf := make([]byte, 1024)
 	n, err := gReadWriteCloser.Read(buf)
 	if err != nil {
 		if err != io.EOF { //EOF error isn't a real error.

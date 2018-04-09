@@ -3,11 +3,19 @@ package main
 import (
 	"Nlog"
 	"serial"
+	"time"
 )
 
 func main() {
 	Nlog.Info.Println("Start")
-	serial.Write("Hello from go\n")
+	go ReadThd()
+	for {
+		serial.Write("I'm here.\r\n")
+		time.Sleep(5 * time.Second)
+	}
+}
+
+func ReadThd() {
 	for {
 		serial.Read()
 	}
